@@ -25,4 +25,4 @@ unit tests:
   tags:
   - docker
   script:
-  - echo "Verify Docker image consistent with pipeline"
+  - echo "Verify Docker image consistent with pipeline..."
