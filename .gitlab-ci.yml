@@ -1,0 +1,28 @@
+# Stages definition
+stages:
+  - test
+
+# Init all what we need to run the pipeline jobs (docker-in-docker approach https://docs.gitlab.com/ce/ci/docker/using_docker_build.html#use-docker-in-docker-executor)
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_IMAGE_TAG: ${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
+  DOCKER_PARENT_IMAGE: "node:9.4-stretch"
+  HELM_VERSION: "v2.9.0"
+  HELM_DIR: "helm-simple-nodejs-api"
+
+
+
+services:
+- docker:dind
+
+image: docker:latest
+
+
+# TEST STAGE
+unit tests:
+  stage: test
+  image: ${DOCKER_PARENT_IMAGE}
+  tags:
+  - docker
+  script:
+  - echo "Verify Docker image consistent with pipeline"
